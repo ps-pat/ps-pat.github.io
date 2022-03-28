@@ -16,7 +16,7 @@ ignore = ["node_modules/"]
 generate_rss = true
 website_title = "Patrick Fournier"
 website_descr = "Patrick's personal website"
-website_url   = "https://patrickfournier.ca"
+website_url   = "https://www.patrickfournier.ca"
 
 comments_allowed = false
 +++
