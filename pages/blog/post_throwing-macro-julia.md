@@ -221,7 +221,7 @@ As expected,
 
 ```julia-repl
 julia> @throw_exception
-ERROR: X(
+ERROR: 😱
 
 julia> @test_throws ErrorException @throw_exception
 Test Passed
