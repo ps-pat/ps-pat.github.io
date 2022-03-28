@@ -18,7 +18,7 @@ PhD candidate @ [STATQAM](https://statqam.uqam.ca/)
   *computationnally challenging* tasks
 * I ~~~&#x1F49C;~~~ [Julia](https://julialang.org/)
 * I also like R, Python, LISP, C, C++
-* ~~~<a onclick="cons(body)">Click me</a>~~~ if you're tired of the background
+* ~~~<a role="button" onclick="cons(body)">Click me</a>~~~ if you're tired of the background
   ~~~&#x1f643~~~
 
 # Social
