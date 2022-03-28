@@ -86,8 +86,22 @@ function debounce(f) {
   }
 }
 
+function throttle(f, delay) {
+  let throttled = false;
+
+  return function() {
+    if (!throttled) {
+      throttled = true;
+
+      f.apply(this, arguments);
+
+      setTimeout(function() {throttled = false;}, delay);
+    }
+  }
+}
+
 window.addEventListener('resize',
-                        debounce(function(event) {cons(body);}),
+                        throttle(function(event) {cons(body);}, 2000),
                         false);
 
 // Add a "top" button after every h1 and h2 title.
