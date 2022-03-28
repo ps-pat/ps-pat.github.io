@@ -1,0 +1,72 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <style> @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); </style> <link rel=stylesheet  href="/libs/highlight/harmonic16-light.min.css"> <link href="/css/code.css" rel=stylesheet > <link href="/css/franklin.css" rel=stylesheet > <link href="/css/vela.css" rel=stylesheet > <link href="/css/perso.css" rel=stylesheet > <script src="/libs/vela/jquery.min.js"></script> <link rel=icon  href="/assets/favicon.png"> <title>Patrick Fournier</title> <a name=top-page ></a> <div class="main-nav slideout-menu slideout-menu-left" id=menu > <div class=flex-container > <span class=sidebar-brand > <h3 style='font-size: 25px'>Menu</h3> </span> </div> <nav class=sidebar-nav > <ul class=metismenu  id=metismenu  > <li><a href="/index.html">Home</a> <li><a href="pages/blog/">Blog</a> <li><a href="https://patrickfournier.ca/JCheck.jl">JCheck.jl</a> </ul> </nav> </div> <main id=panel  class="slidout-panel slideout-panel-left"> <div class="toggle-button hamburger hamburger--spin"> <div class=hamburger-box > <div class=hamburger-inner ></div> </div> </div> <h1 class="page title">Throwing From a Julia Macro</h1> <div class=franklin-content > <span class=date >2022-03-22</span>&nbsp<span class=tag >Julia</span> <span class=tag >Metaprogramming</span><br><span class=abstract >How many layers of quotation do you need?</span> <div class=franklin-toc ><ol><li><a href="#exception_handling">Exception Handling</a><li><a href="#throwing_an_exception">Throwing an Exception</a><li><a href="#throwing_from_a_macro">Throwing From a Macro</a><ol><li><a href="#interpolating_error_messages">Interpolating Error Messages</a><li><a href="#a_complicated_case">A Complicated Case</a></ol></ol></div> <h1 id=exception_handling ><a href="#exception_handling" class=header-anchor >Exception Handling</a></h1> <p>Like most modern languages, Julia provides a variety of <a href="https://docs.julialang.org/en/v1/manual/control-flow/">control flow constructs</a>. This post will take a look at <a href="https://docs.julialang.org/en/v1/manual/control-flow/#Exception-Handling">exception handling</a>. Julia allows the programmer to manage exceptions using <code>try/catch</code> statements. The idea is to enclose a potentially problematic chunk of code in a <code>try</code> block. If an exception occurs, the code in a corresponding catch block is executed. For instance, the following function tries to take the logarithm of its argument, which has to be a real number. If <code>x</code> is negative, it is converted to a complex number, thus allowing a complex return value &#40;through <a href="https://en.wikipedia.org/wiki/Method_dispatch">method dispatch</a>&#41; instead of throwing an error.</p> <pre><code class="julia hljs"><span class=hljs-keyword >function</span> take_log(x::<span class=hljs-built_in >Real</span>)
+    <span class=hljs-keyword >try</span>
+        log(x)
+    <span class=hljs-keyword >catch</span> e
+        log(<span class=hljs-built_in >Complex</span>(x))
+    <span class=hljs-keyword >end</span>
+<span class=hljs-keyword >end</span></code></pre> <p>As you can see, the result match our expectations for positive real numbers:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > take_log(<span class=hljs-number >42</span>)
+</span>3.7376696182833684
+
+<span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > log(<span class=hljs-number >42</span>)
+</span>3.7376696182833684</code></pre> <p>On the other hand, the behavior of the functions differ when evaluating negative numbers:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > take_log(-<span class=hljs-number >42</span>)
+</span>3.7376696182833684 + 3.141592653589793im
+
+<span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > log(-<span class=hljs-number >42</span>)
+</span>ERROR: DomainError with -42.0:
+log will only return a complex result if called
+with a complex argument. Try log(Complex(x)).
+[...]</code></pre> <p>Of course, this is just a toy example; <code>try-catch</code> blocks are not the preferred way of achieving polymorphism &#x1F609.</p> <h1 id=throwing_an_exception ><a href="#throwing_an_exception" class=header-anchor >Throwing an Exception</a></h1> <p>Calling the <code>log</code> function with a negative argument resulted in it <em>throwing</em> an exception of type <code>DomainError</code>. We can easily code a function with similar behavior using the <code>throw</code> function:</p> <pre><code class="julia hljs"><span class=hljs-keyword >function</span> throw_exception()
+    throw(<span class=hljs-built_in >ErrorException</span>(<span class=hljs-string >&quot;😱&quot;</span>))
+
+    println(<span class=hljs-string >&quot;No exception 🥳&quot;</span>)
+<span class=hljs-keyword >end</span></code></pre> <p>A call to that function inevitably throws an <code>ErrorException</code>:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > throw_exception()
+</span>ERROR: 😱</code></pre> <p>In fact, we can even test that a call to our function throws the expected type of exception using the <a href="https://docs.julialang.org/en/v1/stdlib/Test/#Test.@test_throws"><code>@test_throws</code></a> macro from the Test package &#40;included in the standard library&#41;:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-keyword >using</span> Test: <span class=hljs-meta >@test_throws</span>
+</span>
+<span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@test_throws</span> <span class=hljs-built_in >ErrorException</span> throw_exception()
+</span>Test Passed
+  Expression: throw_exception()
+      Thrown: ErrorException</code></pre> <h1 id=throwing_from_a_macro ><a href="#throwing_from_a_macro" class=header-anchor >Throwing From a Macro</a></h1> <p>Can we achieve the same result with a macro? Let’s find out&#33;</p> <pre><code class="julia hljs"><span class=hljs-keyword >macro</span> throw_exception()
+    throw(<span class=hljs-built_in >ErrorException</span>(<span class=hljs-string >&quot;😱&quot;</span>))
+
+    :(println(<span class=hljs-string >&quot;No exception 🥳&quot;</span>))
+<span class=hljs-keyword >end</span></code></pre> <p>Unfortunately, when we evaluate it, we get the following result:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@throw_exception</span>
+</span>ERROR: LoadError: 😱</code></pre> <p>Instead of the expected <code>ErrorException</code>, we get a <code>LoadError</code>. This might easily become an issue. For instance, it prevent <code>@test-throws</code> from doing its job:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@test_throws</span> <span class=hljs-built_in >ErrorException</span> <span class=hljs-meta >@throw_exception</span>
+</span>ERROR: LoadError: 😱</code></pre> <p>Luckily, this can easily be fixed. Instead of throwing directly from the macro, we can make it expand to code that emit the exception.</p> <pre><code class="julia hljs"><span class=hljs-keyword >macro</span> throw_exception()
+    <span class=hljs-keyword >return</span> :(throw(<span class=hljs-built_in >ErrorException</span>(<span class=hljs-string >&quot;😱&quot;</span>)))
+
+    :(println(<span class=hljs-string >&quot;No exception 🥳&quot;</span>))
+<span class=hljs-keyword >end</span></code></pre> <p>Testing now works as expected:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@test_throws</span> <span class=hljs-built_in >ErrorException</span> <span class=hljs-meta >@throw_exception</span>
+</span>Test Passed
+  Expression: #= REPL[41]:1 =# @throw_exception
+      Thrown: ErrorException</code></pre> <h2 id=interpolating_error_messages ><a href="#interpolating_error_messages" class=header-anchor >Interpolating Error Messages</a></h2> <p>It is often useful to interpolate the value of a local variable in the error message. However, since the interpolation operator is the same for string and for quoted expression, a little bit of care is required. Let modify our macro.</p> <pre><code class="julia hljs"><span class=hljs-keyword >macro</span> throw_exception()
+    var = <span class=hljs-string >&quot;😱&quot;</span>
+
+    <span class=hljs-keyword >return</span> :(throw(<span class=hljs-built_in >ErrorException</span>(<span class=hljs-string >&quot;<span class=hljs-variable >$var</span>&quot;</span>)))
+
+    :(println(<span class=hljs-string >&quot;No exception 🥳&quot;</span>))
+<span class=hljs-keyword >end</span></code></pre> <p>Now, evaluating <code>@throwexception</code> throws an <code>UndefVarError</code>:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@throw_exception</span>
+</span>ERROR: UndefVarError: var not defined</code></pre> <p>Fortunately, we can use <code>@macroexpand</code> to better understand what happened:</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@macroexpand</span> <span class=hljs-meta >@throw_exception</span>
+</span>:(Main.throw(Main.ErrorException(&quot;$(Main.var)&quot;)))</code></pre> <p>Instead of interpolating the error message with the variable <code>var</code> declared &#40;locally&#41; in the scope of the macro body, the string in the expanded macro still contain an interpolation operator. Julia is trying to interpolate it with the variable <code>var</code> in the global scope. Since <code>var</code> is not defined in that scope, we get an error. In order to avoid this and achieve the desired behavior, we need another interpolation operator:</p> <pre><code class="julia hljs"><span class=hljs-keyword >macro</span> throw_exception()
+    var = <span class=hljs-string >&quot;😱&quot;</span>
+
+    <span class=hljs-keyword >return</span> :(throw(<span class=hljs-built_in >ErrorException</span>(<span class=hljs-string >&quot;<span class=hljs-subst >$($var)</span>&quot;</span>)))
+
+    :(println(<span class=hljs-string >&quot;No exception 🥳&quot;</span>))
+<span class=hljs-keyword >end</span></code></pre> <p>Finally, we get the expected behavior&#33;</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@throw_exception</span>
+</span>ERROR: 😱</code></pre> <p>The outermost <code>&#36;</code> is the <em>string</em> interpolator. It interpolate the value of the variable in the string. The other <code>&#36;</code> is the <em>macro</em> interpolator. It replaces <code>var</code> by its value within the scope of the macro.</p> <h2 id=a_complicated_case ><a href="#a_complicated_case" class=header-anchor >A Complicated Case</a></h2> <p>As we have seen, things are relatively simple, at least when <code>var</code> is a string. But what if it is a symbol? Then our solution doesn’t work anymore. After expansion, the value of <code>var</code> is going to be interpreted as a variable in the global scope, ultimately causing a <code>UndefVarError</code> &#40;or undefined behavior if the variable is defined&#41;. To get around that issue, we need to add another layer of quotation. The most convenient way of doing this is to use <code>Meta.quot</code>.</p> <pre><code class="julia hljs"><span class=hljs-keyword >macro</span> throw_exception()
+    var = <span class=hljs-built_in >Symbol</span>(<span class=hljs-string >&quot;😱&quot;</span>)
+
+    <span class=hljs-comment >## Do stuff with `var`...</span>
+
+    _var = Meta.quot(var)
+
+    <span class=hljs-keyword >return</span> :(throw(<span class=hljs-built_in >ErrorException</span>(<span class=hljs-string >&quot;<span class=hljs-subst >$($_var)</span>&quot;</span>)))
+
+    :(println(<span class=hljs-string >&quot;No exception 🥳&quot;</span>))
+<span class=hljs-keyword >end</span></code></pre> <p>As expected,</p> <pre><code class="julia-repl hljs"><span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@throw_exception</span>
+</span>ERROR: 😱
+
+<span class="hljs-meta prompt_">julia&gt;</span><span class=language-julia > <span class=hljs-meta >@test_throws</span> <span class=hljs-built_in >ErrorException</span> <span class=hljs-meta >@throw_exception</span>
+</span>Test Passed
+  Expression: #= REPL[56]:1 =# @throw_exception
+      Thrown: ErrorException</code></pre> <p>I used these little tricks recently for my package <a href="https://github.com/ps-pat/JCheck.jl">JCheck</a> &#40;still under development&#41;. They have allowed me to test it more thoroughly and to give more informative error messages to the end user. The more you know &#x1F308&#x2B50</p> <div class=construction >Site under construction, more content on its way!</div> <script src="https://utteranc.es/client.js" repo="ps-pat/ps-pat.github.io" issue-term=pathname  theme=github-light  crossorigin=anonymous  async> </script> <div class=page-foot > <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Patrick Fournier. Last modified: March 28, 2022. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>. </div> </div> </main> <script src="/libs/vela/metisMenu.min.js"></script> <script src="/libs/vela/slideout.min.js"></script> <script src="/libs/perso/code.js"></script>
