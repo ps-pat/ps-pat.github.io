@@ -25,9 +25,12 @@ class RandbgElement {
 
     this.element.style.fontSize = (Math.random() + 1 / 2) * 2 + "em"
 
-    this.element.style.rotate = (Math.random() - 0.5) * 45 + "deg"
-    this.element.style.transform = "translate(" + (Math.random() - 0.5) * 25 + "px, " +
-      (Math.random() - 0.5) * 25 + "px)"
+    let rotation = (Math.random() - 0.5) * 45 + "deg";
+    let translation_x = (Math.random() - 0.5) * 25 + "px";
+    let translation_y = (Math.random() - 0.5) * 25 + "px";
+    this.element.style.transform =
+      "translate(" + translation_x + ", " + translation_y + ")" +
+      "rotate(" + rotation + ")";
 
     this.element.className = "randbg-element";
   }
