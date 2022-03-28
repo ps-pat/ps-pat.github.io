@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+  </style> 
+  
+  {{if hasmath}} {{insert head_katex.html }}   {{end}}
+  {{if hascode}} {{insert head_highlight.html }}   {{end}}
+
+  {{insert style.html}}
+
+  <title>{{website_title}}</title>
+</head>
+<body>
+  <a name="top-page"></a>
+  {{insert nav.html}}
+
+
+  <!-- Content appended here -->
