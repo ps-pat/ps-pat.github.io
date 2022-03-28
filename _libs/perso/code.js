@@ -72,13 +72,23 @@ const body = document.querySelector('body');
 cons(body);
 
 // Regenerate again when windows is resized.
-if(window.attachEvent) {
-  wait(1000);
-  window.attachEvent('onresize', function() {cons(body);});
+function debounce(f) {
+  let timeout;
+
+  return function() {
+    if (timeout) {
+      window.cancelAnimationFrame(timeout);
+    }
+
+    timeout = window.requestAnimationFrame(function() {
+      f.apply(this, arguments);
+    });
+  }
 }
-else if(window.addEventListener) {
-  window.addEventListener('resize', function() {cons(body);}, true);
-}
+
+window.addEventListener('resize',
+                        debounce(function(event) {cons(body);}),
+                        false);
 
 // Add a "top" button after every h1 and h2 title.
 function add_top(elem) {
