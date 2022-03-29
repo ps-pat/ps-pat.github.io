@@ -1,15 +1,17 @@
-code {
+code, code.hljs {
     font-family: "Fira Mono", monospace;
 
     border-style: dotted;
     border-width: 1px;
     border-color: #e65100;
 
-    background: rgba(124, 125, 126, 0.075);
+    background-color: rgba(124, 125, 126, 0.075);
 }
 
 code:not(pre code) {
     padding: 0;
+
+    background-color: rgba(124, 125, 126, 0.075);
 
     border-radius: 5px;
 }
