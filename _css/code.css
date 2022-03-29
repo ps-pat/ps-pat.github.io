@@ -25,7 +25,7 @@ code:not(pre code) {
   color: #bf9a56;
 }
 
-.hljs-repl, .hljs-meta prompt_ {
+.hljs-repl, .hljs-meta.prompt_ {
     color: #9558b2;
 }
 
