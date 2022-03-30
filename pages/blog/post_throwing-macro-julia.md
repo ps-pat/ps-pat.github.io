@@ -112,7 +112,7 @@ ERROR: LoadError: 😱
 ```
 
 Instead of the expected `ErrorException`, we get a `LoadError`. This might
-easily become an issue. For instance, it prevent `@test-throws` from doing its 
+easily become an issue. For instance, it prevent `@test_throws` from doing its 
 job:
 
 ```julia-repl
