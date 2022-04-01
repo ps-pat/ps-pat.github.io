@@ -18,6 +18,8 @@ PhD candidate @ [STATQAM](https://statqam.uqam.ca/)
   *computationnally challenging* tasks
 * I ~~~&#x1F49C;~~~ [Julia](https://julialang.org/)
 * I also like R, Python, LISP, C, C++
+* I am an amateur chess player ([challenge me on
+  Lichess!](https://lichess.org/?user=pfournier#friend))
 * ~~~<a role="button" onclick="cons(body)">Click me</a>~~~ if you're tired of the background
   ~~~&#x1f643~~~
 
