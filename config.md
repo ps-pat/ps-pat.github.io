@@ -18,7 +18,13 @@ website_title = "Patrick Fournier"
 website_descr = "Patrick's personal website"
 website_url   = "https://www.patrickfournier.ca"
 
+## Default meta description.
+meta = "Patrick Fournier, PhD candidate @ STATQAM (UQAM); Mathematics &amp; \
+        statistics for anything computationally intensive"
+
 comments_allowed = false
+
+include("utils.jl")
 +++
 
 <!--

@@ -1,9 +1,11 @@
 +++
+include("utils.jl")
 title = "Throwing From a Julia Macro"
 date = Date(2022, 3, 22)
 hascode = true
 tags = ["Julia", "Metaprogramming"]
 abstract = "How many layers of quotation do you need?"
+meta = post_default_meta()
 comments_allowed = true
 +++
 

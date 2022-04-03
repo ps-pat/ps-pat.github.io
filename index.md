@@ -15,7 +15,7 @@ PhD candidate @ [STATQAM](https://statqam.uqam.ca/)
 * I developed and implemented *computationally intensive* methodology for
   *statistical genetics* for my PhD 
 * More generally, I'm interested in applications of *mathematics* to
-  *computationnally challenging* tasks
+  *computationally challenging* tasks
 * I ~~~&#x1F49C;~~~ [Julia](https://julialang.org/)
 * I also like R, Python, LISP, C, C++
 * I am an amateur chess player ([challenge me on
