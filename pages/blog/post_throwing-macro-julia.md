@@ -1,11 +1,12 @@
 +++
-include("utils.jl")
 title = "Throwing From a Julia Macro"
 date = Date(2022, 3, 22)
 hascode = true
 tags = ["Julia", "Metaprogramming"]
 abstract = "How many layers of quotation do you need?"
-meta = post_default_meta()
+meta = "Special care is needed when throwing from a macro in Julia. \
+        Specifically, symbols must be quoted correctly when interpolated \
+        into an error message. A blog post about metaprogramming in Julia."
 comments_allowed = true
 +++
 

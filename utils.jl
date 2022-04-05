@@ -64,5 +64,3 @@ function hfun_blogposts()
 
     html_div("posts-list", ret)
 end
-
-post_default_meta() = abstract * "; " * join(tags, ", ")

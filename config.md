@@ -23,8 +23,6 @@ meta = "Patrick Fournier, PhD candidate @ STATQAM (UQAM); Mathematics &amp; \
         statistics for anything computationally intensive"
 
 comments_allowed = false
-
-include("utils.jl")
 +++
 
 <!--
