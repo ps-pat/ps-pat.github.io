@@ -3,7 +3,7 @@ title = "Patrick Fournier"
 hascode = false
 +++
 
-PhD candidate @ [STATQAM](https://statqam.uqam.ca/)
+PhD candidate @ [STATQAM](https://statqam.uqam.ca/) ([UQAM](https://uqam.ca))
 
 # Education
 * PhD in Statistics (2022), Université du Québec à Montréal. 
