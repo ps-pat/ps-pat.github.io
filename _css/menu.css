@@ -1,0 +1,11 @@
+.menu-button {
+    grid-column: menu / menu;
+    grid-row: page-header / page-header;
+
+    display: flex;
+}
+
+.menu-button svg {
+    margin: auto auto;
+    max-width: 1.5cm;
+}
