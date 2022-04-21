@@ -113,12 +113,12 @@ ul li p:after {
     color: #ebcb8b;
 }
 
-.franklin-content a {
+.franklin-content a, a {
     cursor: pointer;
     color: #009acd;
 }
 
-.franklin-content a:hover {
+.franklin-content a:hover, a:hover {
     transition: 150ms linear;
 
     color: #00bfff;
