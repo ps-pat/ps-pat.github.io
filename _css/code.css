@@ -31,6 +31,8 @@ code:not(pre code) {
 
 pre code.hljs {
     white-space: pre;
+}
 
-    font-size: 0.85em;
+p code, pre code.hljs {
+    font-size: 0.9em;
 }
