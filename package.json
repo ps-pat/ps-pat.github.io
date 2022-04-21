@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "css-paint-polyfill": "^3.4.0",
-    "highlight.js": "^11.5.0"
+    "highlight.js": "^11.5.1"
   }
 }
