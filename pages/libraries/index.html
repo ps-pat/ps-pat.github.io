@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A list of libraries and packages I have created or contributed to in a significant way.">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+  </style> 
+  
+  
+  
+
+  <link href="/css/franklin.css" rel="stylesheet">
+<link href="/css/vela.css" rel="stylesheet">
+<link href="/css/perso.css" rel="stylesheet">
+<link href="/css/menu.css" rel="stylesheet">
+
+    <link href="/css/libraries.css" rel = stylesheet>
+
+<script src="/libs/vela/jquery.min.js"></script>
+
+<link rel="icon" href="/assets/favicon.png">
+
+
+  <title>Patrick Fournier</title>
+</head>
+<body>
+  <a name="top-page"></a>
+  <main id="panel" class="slidout-panel slideout-panel-left">
+  <input id="menu-toggle" type="checkbox">
+  <div id="grayout"></div>
+  <label for="menu-toggle" class="menu-button">
+    <svg class="burger" preserveAspectRatio='xMinYMin' viewBox='0 0 24 24'>
+      <path d='M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z'/>
+    </svg>
+    <svg class="cross" preserveAspectRatio='xMinYMin' viewBox='0 0 24 24'>
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="white" />
+    </svg>
+  </label>
+
+  <nav>
+    <ol class="menu-content">
+      <li class="menu-item"><a href="/index.html">Home</a></li>
+      <li class="menu-item"><a href="pages/blog/index.html">Blog</a></li>
+      <li class="menu-item"><a href="pages/libraries/index.html">Libraries</a></li>
+    </ol>
+  </nav>
+
+  <h1 class="page title">Libraries</h1>
+
+
+
+  <!-- Content appended here -->
+<div class="franklin-content">
+<div class="page-caption">Here is a list of libraries and packages I have either created or contributed  to in a significant way.</div>
+<h1 id="jcheck"><a href="#jcheck" class="header-anchor">JCheck</a></h1>
+<div class="logo"><img src="/assets/pages/libraries/jcheck-logo.svg" alt="JCheck logo" /></div>
+<p>A package implementing randomized property testing in Julia. It aims at being fast, efficient and easy to use and extend. Main features include: </p>
+<ul>
+<li><p>
+<span class="checked"> Integration with Julia's unit test framework</span>
+</p>
+</li>
+<li><p>
+<span class="checked"> Support for "special cases"</span>
+</p>
+</li>
+<li><p>
+<span class="checked"> Serialization of problematic cases</span>
+</p>
+</li>
+<li><p>
+<span class="checked"> Shrinkage of failing test cases</span>
+</p>
+</li>
+<li><p>
+<span class="unchecked"> "Built-in" usual predicate</span>
+</p>
+</li>
+</ul>
+<p><a href="https://github.com/ps-pat/JCheck.jl">GitHub</a> /  <a href="https://www.patrickfournier.ca/JCheck.jl/dev/">Documentation</a></p>
+<h1 id="asymptote"><a href="#asymptote" class="header-anchor">Asymptote</a></h1>
+<div class="logo"><img src="/assets/pages/libraries/lineage-logo.svg" alt="Lineage logo" /></div>
+<p>An <a href="https://asymptote.sourceforge.io/">Asymptote</a> library for plotting ancestral recombination graph with mutation. The software allows the user to specify a set of sequences that are used as the leaves of the graph as well as a sequence of coalescence/recombination events. Lineage then infers the mutation events and the value of internal nodes. The resulting graph can be exported as a vector image. Main features include:</p>
+<ul>
+<li><p>
+<span class="checked"> Infers mutation events and internal nodes valuation</span>
+</p>
+</li>
+<li><p>
+<span class="checked"> Manages missing values (modeled as non-ancestral material in the leaves)</span>
+</p>
+</li>
+<li><p>
+<span class="checked"> Direct LaTeX integration (<a href="https://asymptote.sourceforge.io/">details</a>)</span>
+</p>
+</li>
+<li><p>
+<span class="unchecked"> Documentation</span>
+</p>
+</li>
+<li><p>
+<span class="unchecked"> Multiple mutations per coalescence event</span>
+</p>
+</li>
+<li><p>
+<span class="unchecked"> Customizable vertices latitude</span>
+</p>
+</li>
+</ul>
+<p><a href="https://github.com/ps-pat/Lineage">GitHub</a></p>
+<div class="construction">Site under construction, more content on its way!</div>
+
+
+
+<div class="page-foot">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Patrick Fournier. Last modified: April 25, 2022.
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</div>
+</div><!-- CONTENT ENDS HERE -->
+  </main> <!-- end of id=main -->
+  <script src="/libs/perso/code.js"></script>
+  
+  
+</body>
+</html>
