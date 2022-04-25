@@ -23,8 +23,23 @@ meta = "Patrick Fournier, PhD candidate @ STATQAM (UQAM); Mathematics &amp; \
         statistics for anything computationally intensive"
 
 comments_allowed = false
+
+specific_css = ""
 +++
 
 <!--
 Add here global latex commands to use throughout your pages.
 -->
+
+## Checked/unchecked list items.
+\newcommand{\checked}[1]{
+~~~
+<span class="checked">#1</span>
+~~~
+}
+
+\newcommand{\unchecked}[1]{
+~~~
+<span class="unchecked">#1</span>
+~~~
+}

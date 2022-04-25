@@ -2,6 +2,9 @@
 <link href="/css/vela.css" rel="stylesheet">
 <link href="/css/perso.css" rel="stylesheet">
 <link href="/css/menu.css" rel="stylesheet">
+{{ isnotempty specific_css }}
+    <link href="/css/{{ specific_css }}" rel = stylesheet>
+{{ end }}
 <script src="/libs/vela/jquery.min.js"></script>
 
 <link rel="icon" href="/assets/favicon.png">
