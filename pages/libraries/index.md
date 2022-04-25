@@ -26,7 +26,7 @@ A package implementing randomized property testing in Julia. It aims at being fa
 [GitHub](https://github.com/ps-pat/JCheck.jl) / 
 [Documentation](https://www.patrickfournier.ca/JCheck.jl/dev/)
 
-# Asymptote
+# Lineage
 @@logo
 ![Lineage logo](/assets/pages/libraries/lineage-logo.svg)
 @@
