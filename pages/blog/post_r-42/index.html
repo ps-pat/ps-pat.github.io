@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A summary of some of the interesting new features of R 4.2. Those include the introduction of a placeholder for the pipe operator, error on conditions with length strictly greater than 1 and an experimental implementation of hash tables.">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+  </style> 
+  
+  
+   <!-- <link rel="stylesheet" href="/libs/highlight/github.min.css"> -->
+<link rel="stylesheet" href="/libs/highlight/harmonic16-light.min.css">
+<link href="/css/code.css" rel="stylesheet">
+   
+
+  <link href="/css/franklin.css" rel="stylesheet">
+<link href="/css/vela.css" rel="stylesheet">
+<link href="/css/perso.css" rel="stylesheet">
+<link href="/css/menu.css" rel="stylesheet">
+
+<script src="/libs/vela/jquery.min.js"></script>
+
+<link rel="icon" href="/assets/favicon.png">
+
+
+  <title>Patrick Fournier</title>
+</head>
+<body>
+  <a name="top-page"></a>
+  <main id="panel" class="slidout-panel slideout-panel-left">
+  <input id="menu-toggle" type="checkbox">
+  <div id="grayout"></div>
+  <label for="menu-toggle" class="menu-button">
+    <svg class="burger" preserveAspectRatio='xMinYMin' viewBox='0 0 24 24'>
+      <path d='M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z'/>
+    </svg>
+    <svg class="cross" preserveAspectRatio='xMinYMin' viewBox='0 0 24 24'>
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="white" />
+    </svg>
+  </label>
+
+  <nav>
+    <ol class="menu-content">
+      <li class="menu-item"><a href="/index.html">Home</a></li>
+      <li class="menu-item"><a href="/pages/blog/index.html">Blog</a></li>
+      <li class="menu-item"><a href="/pages/libraries/index.html">Libraries</a></li>
+    </ol>
+  </nav>
+
+  <h1 class="page title">What's new in R 4.2?</h1>
+
+
+
+  <!-- Content appended here -->
+<div class="franklin-content">
+<span class="date">2022-04-25</span>&nbsp<span class="tag">R</span><br><span class="abstract">Just the interesting stuff for the day-to-day user.</span>
+<div class="franklin-toc"><ol><li><a href="#vigorous_calisthenics">Vigorous Calisthenics</a></li><li><a href="#enforce_unit_length_for_conditions">Enforce Unit Length for Conditions</a><ol><li><a href="#logical_operators">Logical Operators</a></li></ol></li><li><a href="#placeholder_for_the_pipe_operator">Placeholder for the Pipe Operator</a></li><li><a href="#hashtables">Hashtables</a></li></ol></div>
+<h1 id="vigorous_calisthenics"><a href="#vigorous_calisthenics" class="header-anchor">Vigorous Calisthenics</a></h1>
+<p>Version 4.2 of the R programming language has been officially released a few days ago on April 22nd with release name &quot;Vigourous Calisthenics&quot;. A complete list of the changes is available in <a href="https://cran.r-project.org/doc/manuals/r-devel/NEWS.html">R News</a>. However, if you are interested only in changes that might affect the regular day-to-day user, keep reading.</p>
+<h1 id="enforce_unit_length_for_conditions"><a href="#enforce_unit_length_for_conditions" class="header-anchor">Enforce Unit Length for Conditions</a></h1>
+<p>There is no scalar in R, only vectors. A scalar is represented as a vector of unit length. Thus, it makes sense that a lot of the functions and operators in base R are vectorized. This is true of the <code>&#61;&#61;</code> operator. When applied to vectors, it does not check that they are equal like most languages out there; it actually checks for <em>elementwise</em> equality. That means that the value returned is a vector of boolean. For instance:</p>
+<pre><code class="R hljs">r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> <span class="hljs-number">1</span><span class="hljs-operator">:</span><span class="hljs-number">2</span> <span class="hljs-operator">==</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-literal">TRUE</span> <span class="hljs-literal">TRUE</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">==</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span>  <span class="hljs-literal">TRUE</span> <span class="hljs-literal">FALSE</span></code></pre>
+<p>It is standard practice to use <code>&#61;&#61;</code> to check for equality in conditional statements. However, as warned by R documentation, this is bad form. The reason why should be obvious from the second statement in the previous example. A proper equality operator should return a single boolean value, which is not the case for <code>&#61;&#61;</code>. In fact, since there is no such thing as a &quot;single value&quot; in R &#40;i.e. a scalar&#41;, statements such as <code>if</code> or <code>while</code> fall back to checking the first entry of the vector they&#39;re passed. While convenient, this behaviour can quickly lead to unintended consequences and hard to detect bugs:</p>
+<pre><code class="R hljs">r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> <span class="hljs-keyword">if</span> <span class="hljs-punctuation">(</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">==</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+        print<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;:)&quot;</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-string">&quot;:)&quot;</span>
+Warning message<span class="hljs-operator">:</span>
+In <span class="hljs-keyword">if</span> <span class="hljs-punctuation">(</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">==</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> print<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;:)&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">:</span>
+  the condition has <span class="hljs-built_in">length</span> <span class="hljs-operator">&gt;</span> <span class="hljs-number">1</span> and only the first element will be used</code></pre>
+<p>This can be confusing since many users expect such a condition to check for the equality of the vectors. The warning message is clear and informative but can easily be lost in complex outputs. Well, this is not an issue anymore starting with R 4.2 as the warning is turned into an error:</p>
+<pre><code class="R hljs">r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> <span class="hljs-keyword">if</span> <span class="hljs-punctuation">(</span><span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">==</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+        print<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;:)&quot;</span><span class="hljs-punctuation">)</span>
+Error <span class="hljs-keyword">in</span> <span class="hljs-keyword">if</span> <span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-operator">:</span><span class="hljs-number">2</span> <span class="hljs-operator">==</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> print<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;:)&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">:</span> the condition has <span class="hljs-built_in">length</span> <span class="hljs-operator">&gt;</span> <span class="hljs-number">1</span></code></pre>
+<h2 id="logical_operators"><a href="#logical_operators" class="header-anchor">Logical Operators</a></h2>
+<p>Perhaps a bit more confusing is the behaviour of the so-called &quot;long-form&quot; logical operators <code>&amp;&amp;</code> and <code>||</code>. Similar to other languages, those are short-circuit boolean operators. However, since this is R, there is no such thing as a scalar so they have to work with vectors. Just like <code>if</code> and <code>while</code>, they only take into consideration the first entry of the vectors they&#39;re passed. Starting with R 4.2, they will warn the user when a vector of length strictly greater than 1 is used. According to a somewhat menacing statement in <a href="https://cran.r-project.org/doc/manuals/r-devel/NEWS.html">R News</a>, the warning will be turned into an error &quot;no later than May 2.&quot;</p>
+<h1 id="placeholder_for_the_pipe_operator"><a href="#placeholder_for_the_pipe_operator" class="header-anchor">Placeholder for the Pipe Operator</a></h1>
+<p>The base R pipe operator <code>|&gt;</code> is pretty straightforward: <code>x |&gt; f&#40;y&#41;</code> is parsed as <code>f&#40;x, y&#41;</code> and that&#39;s pretty much all there is to it. Starting with 4.2, it is now possible to spice things up a little bit with the <code>_</code> placeholder. <code>_</code> is somewhat similar to dyplyr&#39;s <code>.</code> though not quite as powerful. As an example, let&#39;s say we&#39;re interested in the minimum of each of the 2 variables in the <code>cars</code> dataset. This can be done with and without <code>|&gt;</code> as follow:</p>
+<pre><code class="R hljs">r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> lapply<span class="hljs-punctuation">(</span>cars<span class="hljs-punctuation">,</span> <span class="hljs-built_in">min</span><span class="hljs-punctuation">)</span>
+<span class="hljs-operator">$</span>speed
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-number">4</span>
+
+<span class="hljs-operator">$</span>dist
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-number">2</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> <span class="hljs-built_in">min</span> <span class="hljs-operator">|&gt;</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">\</span><span class="hljs-punctuation">(</span>f<span class="hljs-punctuation">)</span> lapply<span class="hljs-punctuation">(</span>cars<span class="hljs-punctuation">,</span> f<span class="hljs-punctuation">)</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+<span class="hljs-operator">$</span>speed
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-number">4</span>
+
+<span class="hljs-operator">$</span>dist
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-number">2</span></code></pre>
+<p>This last formulation is awkward, to say the least&#33; But since the function should be passed as the second argument of <code>lapply</code>, there is no way around it... until R 4.2&#33; Now, we can make use of <code>_</code> to make it simpler:</p>
+<pre><code class="R hljs">r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> <span class="hljs-built_in">min</span> <span class="hljs-operator">|&gt;</span> lapply<span class="hljs-punctuation">(</span>cars<span class="hljs-punctuation">,</span> FUN <span class="hljs-operator">=</span> _<span class="hljs-punctuation">)</span>
+<span class="hljs-operator">$</span>speed
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-number">4</span>
+
+<span class="hljs-operator">$</span>dist
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-number">2</span></code></pre>
+<p>Way cleaner&#33; That being said, <code>_</code> has two limitations:</p>
+<ul>
+<li><p>It can only be used once on the right-hand side of a pipe expression</p>
+</li>
+<li><p>It must be used in a named argument</p>
+</li>
+</ul>
+<p>The more demanding pipe user is gonna have to keep using good ol&#39; <a href="https://magrittr.tidyverse.org/">magrittr</a> <code>&#37;&gt;&#37;</code>, at least for now.</p>
+<h1 id="hashtables"><a href="#hashtables" class="header-anchor">Hashtables</a></h1>
+<p>R 4.2 is shipped with an experimental implementation of hash tables. R arguably already provides associative data structures in the form of named vectors. Note that this includes lists which are merely vectors of references and matrices/arrays which are vectors with a <code>dim</code> attribute. In that regard, the introduction of hash tables is probably not that groundbreaking. In my opinion, the main interest of <code>hashtab</code>s lies in the fact that they are the only general-purpose mutable data structure in base R. Everything else is either non-mutable &#40;vectors&#41; or non-general purpose &#40;environments&#41;. If the implementation is good, why not?</p>
+<p><a href="https://stat.ethz.ch/R-manual/R-devel/library/utils/html/hashtab.html">The documentation</a> is pretty self explanatory. A simple phone book might look somewhat like this:</p>
+<pre><code class="R hljs">r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> phonebook <span class="hljs-operator">&lt;-</span> hashtab<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> sethash<span class="hljs-punctuation">(</span>phonebook<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Ronald Fisher&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;870-461-5425&quot;</span><span class="hljs-punctuation">)</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> sethash<span class="hljs-punctuation">(</span>phonebook<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Karl Pearson&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;270-706-3966&quot;</span><span class="hljs-punctuation">)</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> numhash<span class="hljs-punctuation">(</span>phonebook<span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-number">2</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> gethash<span class="hljs-punctuation">(</span>phonebook<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Ronald Fisher&quot;</span><span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-string">&quot;870-461-5425&quot;</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> maphash<span class="hljs-punctuation">(</span>phonebook<span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">\</span><span class="hljs-punctuation">(</span>key<span class="hljs-punctuation">,</span> val<span class="hljs-punctuation">)</span> print<span class="hljs-punctuation">(</span>paste<span class="hljs-punctuation">(</span>key<span class="hljs-punctuation">,</span> val<span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;, cell: &quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-string">&quot;Karl Pearson, cell: 270-706-3966&quot;</span>
+<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-string">&quot;Ronald Fisher, cell: 870-461-5425&quot;</span>
+
+r<span class="hljs-operator">$</span><span class="hljs-operator">&gt;</span> remhash<span class="hljs-punctuation">(</span>phonebook<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Ronald Fisher&quot;</span><span class="hljs-punctuation">)</span></code></pre>
+<div class="construction">Site under construction, more content on its way!</div>
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ps-pat/ps-pat.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<div class="page-foot">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Patrick Fournier. Last modified: April 27, 2022.
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</div>
+</div><!-- CONTENT ENDS HERE -->
+  </main> <!-- end of id=main -->
+  <script src="/libs/perso/code.js"></script>
+  
+  
+    
+
+
+  
+</body>
+</html>
