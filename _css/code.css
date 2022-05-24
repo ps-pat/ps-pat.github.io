@@ -1,5 +1,8 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
 code, code.hljs {
-    font-family: "Fira Mono", monospace;
+    font-family: "Fira Code", monospace;
 
     border-style: dotted;
     border-width: 1px;
