@@ -132,9 +132,9 @@ ul li p:after {
 }
 
 .franklin-content a:hover, a:hover {
-    transition: 150ms linear;
+    transition: 150ms ease;
 
-    color: #00bfff;
+    filter: brightness(120%);
 
     text-decoration: underline;
     text-decoration-color: #e65100;
