@@ -105,24 +105,13 @@ h2 {
     margin-top: 2em;
 }
 
-ul {
-    list-style: none;
-}
-
-ul li:before {
-    float: left;
-    content: "#'";
-
-    margin: 0 -1em;
-    margin-left: -1.5em;
-    margin-right: 0.5em;
-
+ul li::marker {
+    content: "#'   ";
     color: #8fbcbb;
 }
 
 ul li p:after {
     content: ";";
-
     color: #ebcb8b;
 }
 
