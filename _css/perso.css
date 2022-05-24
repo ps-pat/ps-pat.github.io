@@ -109,7 +109,7 @@ h2 {
 }
 
 ul li::marker {
-    content: "#'   ";
+    content: "#'  ";
     color: #8fbcbb;
 }
 
