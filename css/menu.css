@@ -117,13 +117,11 @@ nav {
     border-left: 10px groove #f5ab35;
 }
 
-/* #menu-toggle:checked ~ nav .submenu.libraries .submenu-item:nth-of-type(1) { */
-/*     transition-delay: calc(var(--base-delay) + 3 * var(--delay-step)), var(--border-delay); */
-/* } */
+#menu-toggle:checked ~ nav .menu-item:nth-of-type(4) {
+    transition-delay: calc(var(--base-delay) + 3 * var(--delay-step)), var(--border-delay);
 
-/* #menu-toggle:checked ~ nav .submenu.libraries .submenu-item:nth-of-type(2) { */
-/*     transition-delay: calc(var(--base-delay) + 4 * var(--delay-step)), var(--border-delay); */
-/* } */
+    border-left: 10px ridge #56BF8B;
+}
 
 /* Grayout effect */
 #grayout {
