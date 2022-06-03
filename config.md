@@ -25,6 +25,9 @@ meta = "Patrick Fournier, PhD candidate @ STATQAM (UQAM); Mathematics &amp; \
 comments_allowed = false
 
 specific_css = ""
+
+## Disable automatic generation of robot.txt.
+generate_robots = false
 +++
 
 <!--
