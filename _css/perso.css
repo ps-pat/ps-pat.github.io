@@ -102,6 +102,8 @@ h2 {
 
 .franklin-content > p:first-of-type {
     margin-top: 0;
+    margin-left: 1em;
+    text-indent: 1em;
 }
 
 .page-foot {

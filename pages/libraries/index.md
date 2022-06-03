@@ -6,10 +6,8 @@ meta = "A list of libraries and packages I have created or contributed to \
 specific_css = "libraries.css"
 +++
 
-@@page-caption
 Here is a list of libraries and packages I have either created or contributed 
 to in a significant way.
-@@
 
 # JCheck
 @@logo
