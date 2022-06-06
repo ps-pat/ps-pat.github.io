@@ -26,8 +26,9 @@ comments_allowed = false
 
 specific_css = ""
 
-## Disable automatic generation of robot.txt.
+## Disable automatic generation of robot.txt and sitemap.xml.
 generate_robots = false
+generate_sitemap = false
 +++
 
 <!--
