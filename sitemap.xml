@@ -1,34 +1,54 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-<url>
+  <url>
     <loc>https://www.patrickfournier.ca/index.html</loc>
     <lastmod>2022-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-</url>
-<url>
+  </url>
+
+  <url>
     <loc>https://www.patrickfournier.ca/pages/blog/post_r-42/index.html</loc>
     <lastmod>2022-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-</url>
-<url>
-    <loc>https://www.patrickfournier.ca/pages/communications/index.html</loc>
-    <lastmod>2022-06-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
+  </url>
+  <url>
     <loc>https://www.patrickfournier.ca/pages/blog/post_throwing-macro-julia/index.html</loc>
     <lastmod>2022-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-</url>
-<url>
+  </url>
+
+  <url>
+    <loc>https://www.patrickfournier.ca/pages/communications/index.html</loc>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.patrickfournier.ca/ssc2022/index.html</loc>
+    <lastmod>2022-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
     <loc>https://www.patrickfournier.ca/pages/libraries/index.html</loc>
     <lastmod>2022-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-</url>
+  </url>
+  <url>
+    <loc>https://www.patrickfournier.ca/JCheck.jl/dev/index.html</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.patrickfournier.ca/JCheck.jl/dev/reference/index.html</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
