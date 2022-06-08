@@ -21,7 +21,7 @@ A package implementing randomized property testing in Julia. It aims at being fa
 - \checked{Shrinkage of failing test cases}
 - \unchecked{"Built-in" usual predicate }
 
-[GitHub](https://github.com/ps-pat/JCheck.jl) / 
+[GitHub](https://github.com/ps-pat/JCheck.jl/) / 
 [Documentation](https://www.patrickfournier.ca/JCheck.jl/dev/)
 
 # Lineage
@@ -42,4 +42,4 @@ image. Main features include:
 - \unchecked{Multiple mutations per coalescence event}
 - \unchecked{Customizable vertices latitude}
 
-[GitHub](https://github.com/ps-pat/Lineage)
+[GitHub](https://github.com/ps-pat/Lineage/)

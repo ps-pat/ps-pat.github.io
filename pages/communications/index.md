@@ -20,4 +20,4 @@ motivated by the need to account for epistasis (SNP-SNP interaction) in
 introduce a framework for "model-free" phenotypical prediction based on genomic
 data.
 
-[Slides](https://www.patrickfournier.ca/ssc2022/index.html)
+[Slides](https://www.patrickfournier.ca/ssc2022/)
