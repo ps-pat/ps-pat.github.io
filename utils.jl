@@ -64,3 +64,16 @@ function hfun_blogposts()
 
     html_div("posts-list", ret)
 end
+
+function hfun_linksbox(elems)
+    elems_str = map(Iterators.partition(elems, 2)) do p
+        "<td>" * "<a href=\"$(last(p))\">$(first(p))</a>" * "</td>"
+    end
+
+    separator = "<td>" * html_span("linksbox-separator", "") * "</td>"
+
+    html_div("linksbox-container",
+             "<table class=\"linksbox\"><tr>" *
+                 join(elems_str, "\n" * separator * "\n") *
+                 "</tr></table>")
+end
