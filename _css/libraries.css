@@ -23,26 +23,3 @@
     margin: 0;
     padding: 0;
 }
-
-/* Features list */
-ul li:before {
-    content: "";
-}
-
-ul li .checked:before, ul li .unchecked:before {
-    float: left;
-    margin: 0;
-    margin-left: -1.5em;
-    margin-right: 0.5em;
-    color: #8fbcbb;
-
-    font-size: 110%;
-}
-
-ul li .checked:before {
-    content: "\1f5f9";
-}
-
-ul li .unchecked:before {
-    content: "\2610";
-}

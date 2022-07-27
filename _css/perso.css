@@ -115,6 +115,15 @@ ul li::marker {
     color: #8fbcbb;
 }
 
+ul li.checked::marker {
+    content: "\1f5f9  ";
+}
+
+ul li.unchecked::marker {
+    content: "\2610  ";
+}
+
+
 ul li p:after {
     content: ";";
     color: #ebcb8b;
@@ -218,7 +227,7 @@ em {
 table.linksbox {
     margin: 0;
 
-    border-collapse: collapse;
+    border-collapse: collapse;qq
 
     border-style: none;
     border-left: solid;

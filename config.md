@@ -38,12 +38,12 @@ Add here global latex commands to use throughout your pages.
 ## Checked/unchecked list items.
 \newcommand{\checked}[1]{
 ~~~
-<span class="checked">#1</span>
+<li class="checked">#1</li>
 ~~~
 }
 
 \newcommand{\unchecked}[1]{
 ~~~
-<span class="unchecked">#1</span>
+<li class="unchecked">#1</li>
 ~~~
 }
