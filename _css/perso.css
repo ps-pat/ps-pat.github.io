@@ -127,10 +127,14 @@ ul li.unchecked::marker {
     content: "\2610  ";
 }
 
-
-ul li p:after {
+ul li p:after, ol li p:after {
     content: ";";
     color: #ebcb8b;
+}
+
+ul li:last-child p:after,
+ol li:last-child p:after {
+    content: ".";
 }
 
 .franklin-content a, a {
