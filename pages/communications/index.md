@@ -5,7 +5,21 @@ meta = "A list of communications."
 hasmath = true
 +++
 
-List of communications made in a peer-reviewed context. Linked supporting material (slides...) might have been corrected or otherwise modified since its initial publication.
+List of communications made in a peer-reviewed context. Linked supporting
+material (slides...) might have been corrected or otherwise modified since its
+initial publication.
+
+# JCheck.jl: Randomized Property Testing Made Easy
+@@logo
+![JCheck logo](/assets/pages/libraries/jcheck-logo.svg)
+@@
+
+For [JuliaCon 2022](https://juliacon.org/2022/). A short presentation of my
+Julia package [JCheck.jl](/pages/libraries/#jcheck). Since the meeting was
+virtual, a recording of this talk will be available soon.
+
+{{ linksbox 
+    Slides https://www.patrickfournier.ca/juliacon2022/}}
 
 # Accounting for Epistasis in PRSs Through the Coalescent
 \begin{equation*}

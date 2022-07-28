@@ -257,3 +257,22 @@ table.linksbox td .linksbox-separator::after {
     content: "\2297";
     padding: 0;
 }
+
+/* Logo */
+.logo {
+    display: flex;
+    justify-content: center;
+
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+
+.logo img {
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 0;
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+}
