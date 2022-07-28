@@ -123,3 +123,13 @@ const h2s = document.getElementsByTagName("h2")
 for (h2 of h2s) {
   add_top(h2)
 }
+
+$(function() {
+  // Position the nav menu.
+  const menubutton_height = $("label.menu-button").height();
+  $(window).on("resize load", function() {
+    const offset = $("label.menu-button").position();
+    $("nav").css({"top": offset.top + menubutton_height,
+                  "left": offset.left});
+  });
+});

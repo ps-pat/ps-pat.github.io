@@ -18,6 +18,9 @@ nav ol {
 
 /* Menu buttons */
 label.menu-button {
+    position: sticky;
+    top: 0;
+
     grid-column: menu / menu;
     grid-row: page-header / page-header;
 
@@ -57,42 +60,25 @@ label.menu-button svg.cross {
     opacity: 1
 }
 
-/* Menu transition */
-nav .menu-item {
-    opacity: 0;
-    transform: translateX(-100%);
-}
-
-nav .submenu .submenu-item {
-    transform: translateX(-150%);
-}
-
 nav {
-    position: absolute;
-    right: 100%;
-    top: 0;
-}
-
-#menu-toggle:checked ~ nav {
     position: fixed;
-    right: 75%;
-    top: 25%;
+    left: 0;
+    top: 0;
 
-    margin: 0;
-    padding: 0;
+    width: 100%;
 
-    z-index: 10;
+    z-index: -1;
+    opacity: 0;
 }
 
 #menu-toggle:checked ~ nav {
-    transform: translate(100%, 0);
+    z-index: 10;
+    opacity: 100;
 }
 
 #menu-toggle:checked ~ nav .menu-item,
 #menu-toggle:checked ~ nav .submenu-item {
-    transform: translateX(0);
-    transition: transform var(--duration)
-                cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275),
                 border var(--duration),
                 opacity var(--duration);
     opacity: 1;
@@ -100,25 +86,25 @@ nav {
 
 /* Ugly code for sequential translation of menu items. */
 #menu-toggle:checked ~ nav .menu-item:nth-of-type(1) {
-    transition-delay: var(--base-delay), var(--border-delay);
+    transition-delay: 0;
 
     border-left: 10px groove #9b59b6;
 }
 
 #menu-toggle:checked ~ nav .menu-item:nth-of-type(2) {
-    transition-delay: calc(var(--base-delay) + var(--delay-step)), var(--border-delay);
+    transition-delay: var(--delay-step);
 
     border-left: 10px ridge #86e2d5;
 }
 
 #menu-toggle:checked ~ nav .menu-item:nth-of-type(3) {
-    transition-delay: calc(var(--base-delay) + 2 * var(--delay-step)), var(--border-delay);
+    transition-delay: calc(2 * var(--delay-step));
 
     border-left: 10px groove #f5ab35;
 }
 
 #menu-toggle:checked ~ nav .menu-item:nth-of-type(4) {
-    transition-delay: calc(var(--base-delay) + 3 * var(--delay-step)), var(--border-delay);
+    transition-delay: calc(3 * var(--delay-step));
 
     border-left: 10px ridge #56BF8B;
 }
