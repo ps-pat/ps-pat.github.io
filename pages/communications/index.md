@@ -16,10 +16,11 @@ initial publication.
 
 For [JuliaCon 2022](https://juliacon.org/2022/). A short presentation of my
 Julia package [JCheck.jl](/pages/libraries/#jcheck). Since the meeting was
-virtual, a recording of this talk will be available soon.
+virtual, a recording of this talk is available!
 
 {{ linksbox 
-    Slides https://www.patrickfournier.ca/juliacon2022/}}
+    Slides https://www.patrickfournier.ca/juliacon2022/
+    Youtube https://youtu.be/N-Cb0eTdQpM }}
 
 # Accounting for Epistasis in PRSs Through the Coalescent
 \begin{equation*}
