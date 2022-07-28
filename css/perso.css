@@ -115,6 +115,15 @@ ul li::marker {
     color: #8fbcbb;
 }
 
+ul li.checked::marker {
+    content: "\1f5f9  ";
+}
+
+ul li.unchecked::marker {
+    content: "\2610  ";
+}
+
+
 ul li p:after {
     content: ";";
     color: #ebcb8b;
@@ -208,4 +217,33 @@ em {
 
         width: auto;
     }
+}
+
+/* Linksbox */
+.linksbox-container {
+    overflow-x: auto;
+}
+
+table.linksbox {
+    margin: 0;
+
+    border-collapse: collapse;qq
+
+    border-style: none;
+    border-left: solid;
+    border-width: 1ex;
+    border-color: #9b59b6;
+    border-radius: 10px;
+
+    background-color: rgba(155, 89, 182, 0.25);
+}
+
+table.linksbox td {
+    font-size: var(--normal);
+    padding: 5px;
+}
+
+table.linksbox td .linksbox-separator::after {
+    content: "\2297";
+    padding: 0;
 }
