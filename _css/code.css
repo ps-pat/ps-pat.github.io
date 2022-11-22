@@ -5,7 +5,7 @@
     --b-radius: 25px;
 }
 
-pre {
+pre.code-wrapper {
     border-radius: var(--b-radius);
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
 }
@@ -14,7 +14,7 @@ code, code.hljs {
     font-family: "Fira Code", monospace;
 
     border-style: dotted;
-    border-width: 1px;
+    border-width: 2px;
     border-radius: var(--b-radius);
     border-color: #e65100;
 
