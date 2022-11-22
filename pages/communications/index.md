@@ -5,9 +5,26 @@ meta = "A list of communications."
 hasmath = true
 +++
 
-List of communications made in a peer-reviewed context. Linked supporting
-material (slides...) might have been corrected or otherwise modified since its
-initial publication.
+Linked supporting material (slides...) might have been corrected or
+otherwise modified since its initial publication.
+
+# MAT8186 - Techniques avancées en programmation statistiques R
+@@logo
+![ravance_logo](/assets/pages/communications/ravance.svg)
+@@
+
+I have been teaching the advanced R course @ UQAM since the automn
+semester of 2019. All classroom material is hosted on GitHub and
+publicly available.
+
+{{ linksbox
+	GitHub https://github.com/cours-patrickFournier/mat8186-r-avance
+	C1 https://www.patrickfournier.ca/mat8186-cours1/
+	C2 https://www.patrickfournier.ca/mat8186-cours2/
+	C3 https://www.patrickfournier.ca/mat8186-cours3/
+	C4 https://www.patrickfournier.ca/mat8186-cours4/
+	C5 https://www.patrickfournier.ca/mat8186-cours5/
+	C6 https://www.patrickfournier.ca/mat8186-cours6/ }}
 
 # JCheck.jl: Randomized Property Testing Made Easy
 @@logo
@@ -16,11 +33,17 @@ initial publication.
 
 For [JuliaCon 2022](https://juliacon.org/2022/). A short presentation of my
 Julia package [JCheck.jl](/pages/libraries/#jcheck). Since the meeting was
-virtual, a recording of this talk is available!
+virtual, a recording is available!
 
-{{ linksbox 
-    Slides https://www.patrickfournier.ca/juliacon2022/
-    Youtube https://youtu.be/N-Cb0eTdQpM }}
+@@center
+~~~
+<iframe id="recording-juliacon" width="560" height="315" src="https://www.youtube.com/embed/N-Cb0eTdQpM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+~~~
+@@
+
+{{ linksbox
+	Slides https://www.patrickfournier.ca/juliacon2022/
+	Youtube https://youtu.be/N-Cb0eTdQpM }}
 
 # Accounting for Epistasis in PRSs Through the Coalescent
 \begin{equation*}
@@ -36,4 +59,4 @@ introduce a framework for "model-free" phenotypical prediction based on genomic
 data.
 
 {{ linksbox
-    Slides https://www.patrickfournier.ca/ssc2022/ }}
+	Slides https://www.patrickfournier.ca/ssc2022/ }}
