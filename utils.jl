@@ -29,9 +29,8 @@ function blogpost_meta(date::Date, tags::Vector{String}, abstract::String = "")
     ret
 end
 
-hfun_blogpost_meta() = blogpost_meta(locvar("date"),
-                                     locvar("tags"),
-                                     locvar("abstract"))
+hfun_blogpost_meta() =
+    blogpost_meta(locvar("date"), locvar("tags"), locvar("abstract"))
 
 function hfun_blogposts()
     ## Make a list of blog posts.
@@ -54,12 +53,13 @@ function hfun_blogposts()
         ## and we're good to go!
         dir = chop(file, tail = 3)
 
-        ret *= "<li><p>"
-        ret *= html_ahref(dir, html_span("title", title)) * "<br>"
-        ret *= blogpost_meta(date, tags)
-        ret *= "</p></li>"
+        ret *= reduce(*, ["<li><p>",
+                          html_ahref(dir * "/index.html",
+                                     html_span("title", title)),
+                          "<br>",
+                          blogpost_meta(date, tags),
+                          "</p></li>\n"])
     end
-
     ret *= "</ul>"
 
     html_div("posts-list", ret)
