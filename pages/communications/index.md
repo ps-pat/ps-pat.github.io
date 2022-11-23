@@ -3,12 +3,18 @@ title = "Communications"
 date = Date(2022, 06, 03)
 meta = "A list of communications."
 hasmath = true
+specific_css = "communications.css"
 +++
 
 Linked supporting material (slides...) might have been corrected or
 otherwise modified since its initial publication.
 
 # Score de risque polygénique et épistasie: une approche "model free" basée sur le processus de coalescence
+~~~<div id="statqam-prs-logo" class="logo">~~~
+![statqam_prs_logo](/assets/pages/communications/statqam_prs.svg)
+~~~</div>~~~
+
+
 For the [STATQAM seminar series](https://statqam.uqam.ca/activites-scientifiques/2022-2023/).
 A presentation on how the Coalescent might be used to account for epistasis when
 computing polygenic risk scores. Joint work with [Fabrice Larribe](http://fabricelarribe.uqam.ca/).
