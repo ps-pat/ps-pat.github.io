@@ -216,6 +216,14 @@ em {
     font-size: 85%;
 }
 
+.center {
+    text-align: center;
+}
+
+.center > * {
+    vertical-align: middle;
+}
+
 /* Small screens */
 
 @media only screen and (max-width: 939px) {
