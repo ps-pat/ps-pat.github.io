@@ -49,7 +49,8 @@ publicly available.
 	C3 https://www.patrickfournier.ca/mat8186-cours3/
 	C4 https://www.patrickfournier.ca/mat8186-cours4/
 	C5 https://www.patrickfournier.ca/mat8186-cours5/
-	C6 https://www.patrickfournier.ca/mat8186-cours6/ }}
+	C6 https://www.patrickfournier.ca/mat8186-cours6/
+	C7 https://www.patrickfournier.ca/mat8186-cours7/}}
 
 # JCheck.jl: Randomized Property Testing Made Easy
 @@logo

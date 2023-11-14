@@ -26,7 +26,7 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="1.4142136"
-     inkscape:cx="107.83378"
+     inkscape:cx="312.18764"
      inkscape:cy="248.90159"
      inkscape:window-width="1910"
      inkscape:window-height="1028"
@@ -368,7 +368,7 @@
      fill="url(#gradientFill-1)"
      fill-rule="evenodd"
      id="path264"
-     style="fill:url(#gradientFill-1);filter:url(#filter999)" />
+     style="display:inline;fill:url(#gradientFill-1);filter:url(#filter999)" />
   <g
      id="g2236"
      transform="translate(31.317991,31.517601)">
@@ -377,7 +377,7 @@
        fill="url(#gradientFill-2)"
        fill-rule="evenodd"
        id="path266"
-       style="fill:url(#gradientFill-2);filter:url(#filter1851)" />
+       style="display:inline;fill:url(#gradientFill-2);filter:url(#filter1851)" />
     <path
        d="m 250.67189,224.062 c 0,0 22.02051,6.585 34.81383,13 4.43902,2.226 12.11925,6.668 17.65919,12.5 5.42693,5.712 8.07278,11.5 8.07278,11.5 L 398,406.062 257.73556,406.124 192.14428,284.062 c 0,0 -13.43107,-22.869 -21.69558,-29.5 -6.89414,-5.531 -9.83364,-7.5 -16.65009,-7.5 -4.74477,0 -33.32643,0 -33.32643,0 l 0.0262,158.974 -124.1188896,0.052 V 0 H 245.6264 c 0,0 113.52338,2.029 113.52338,109.062 0,107.033 -108.47789,115 -108.47789,115 z m -53.98667,-135.976 -75.14037,-0.048 -0.0373,69.05 75.1777,-0.024 c 0,0 34.81383,-0.107 34.81383,-35.125 0,-35.722 -34.81383,-33.853 -34.81383,-33.853 z"
        fill="url(#gradientFill-2)"
