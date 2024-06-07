@@ -9,6 +9,17 @@ specific_css = "communications.css"
 Linked supporting material (slides...) might have been corrected or
 otherwise modified since its initial publication.
 
+# Impédance génétique: votre famille comme un circuit électrique&#9889;&#9889;
+~~~<div id="statqam2024" class="logo">~~~
+![statqam2024](https://www.patrickfournier.ca/statqam2024/assets/sp_rec.svg)
+~~~</div>~~~
+
+For the [Journée de la recherche STATQAM](https://statqam.uqam.ca/evenements-a-venir/journee-recherche/)
+A presentation on how classic circuit analysis can be applied to genetics.
+
+{{ linksbox
+    Slides https://www.patrickfournier.ca/statqam2024}}
+
 # Score de risque polygénique et épistasie: une approche "model free" basée sur le processus de coalescence
 ~~~<div id="statqam-prs-logo" class="logo">~~~
 ![statqam_prs_logo](/assets/pages/communications/statqam_prs.svg)
